@@ -31,7 +31,6 @@ namespace SchematicToTrophy
             using (FolderBrowserDialog fbd = new FolderBrowserDialog() { Description = "Select your path." })
             {
                 fbd.SelectedPath = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
-                fbd.SelectedPath = Path.GetDirectoryName("C:/Users/User/Desktop");
                 DialogResult result = fbd.ShowDialog();
                 
                 if (result == System.Windows.Forms.DialogResult.OK)
@@ -57,8 +56,12 @@ namespace SchematicToTrophy
 
         private void GenerateModelClick(object sender, RoutedEventArgs e)
         {
-            if (pathFiles.SelectedItem != null && selectedFolderPath != "")
-                GenerateModelFile(GetBlockIDArray(selectedFolderPath + "/" + pathFiles.SelectedItem.ToString()), selectedFolderPath + "/" + pathFiles.SelectedItem.ToString());
+            if (pathFiles.SelectedItem != null && selectedFolderPath != "") {
+                var blockIDArray = GetBlockIDArray(selectedFolderPath + "/" + pathFiles.SelectedItem.ToString());
+
+                if(blockIDArray != null)
+                    GenerateModelFile(blockIDArray, selectedFolderPath + "/" + pathFiles.SelectedItem.ToString());
+            }
             else
                 System.Windows.MessageBox.Show("No file was selected in list!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
@@ -134,27 +137,42 @@ namespace SchematicToTrophy
             model.LoadFromFile(filePath);
             var compoundTag = model.RootTag;
 
-            // Get NBTByteArray of blockIDs and metadata (in bytes)
-            NbtByteArray blocks = compoundTag.Get<NbtByteArray>("Blocks");
-            NbtByteArray data = compoundTag.Get<NbtByteArray>("Data");
+            // Check if schematic is 16 x 16 x 16
+            short length = compoundTag.Get<NbtShort>("Length").ShortValue;
+            short width = compoundTag.Get<NbtShort>("Width").ShortValue;
+            short height = compoundTag.Get<NbtShort>("Height").ShortValue;
 
-            // Convert ByteArrays into int arrays to get blockIDs and metadata
-            int[] blockIDs = blocks.Value.Select(x => (int)x).ToArray();
-            int[] blockDatas = data.Value.Select(x => (int)x).ToArray();
-
-            List<int> blockIDAndData = new List<int>();
-
-            // Create custom integers based on blockIDs and metadata
-            // blockID + (blockData * 4096)
-            for (int i = 0; i < blockIDs.Length; i++)
+            if ((length == width) && (length == height) && (length == 16))
             {
-                int blockID = blockIDs[i];
-                int blockData = blockDatas[i];
+                System.Windows.MessageBox.Show("Size of schematic: " + length + " " + width + " " + height);
 
-                blockIDAndData.Add(blockID + (blockData * 4096));
+                // Get NBTByteArray of blockIDs and metadata (in bytes)
+                NbtByteArray blocks = compoundTag.Get<NbtByteArray>("Blocks");
+                NbtByteArray data = compoundTag.Get<NbtByteArray>("Data");
+
+                // Convert ByteArrays into int arrays to get blockIDs and metadata
+                int[] blockIDs = blocks.Value.Select(x => (int)x).ToArray();
+                int[] blockDatas = data.Value.Select(x => (int)x).ToArray();
+
+                List<int> blockIDAndData = new List<int>();
+
+                // Create custom integers based on blockIDs and metadata
+                // blockID + (blockData * 4096)
+                for (int i = 0; i < blockIDs.Length; i++)
+                {
+                    int blockID = blockIDs[i];
+                    int blockData = blockDatas[i];
+
+                    blockIDAndData.Add(blockID + (blockData * 4096));
+                }
+
+                return blockIDAndData;
             }
-
-            return blockIDAndData;
+            else
+            {
+                System.Windows.MessageBox.Show("Schematic file is not 16x16x16!", "Incorrect Size Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
         }
     }
 }
