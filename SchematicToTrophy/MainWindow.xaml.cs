@@ -94,14 +94,14 @@ namespace SchematicToTrophy
                             elements.Add(
                                 new Dictionary<string, object>()
                                 {
-                                    { "from", new int[] { x, y, z } },
-                                    { "to", new int[] { x+1, y+1, z+1 } },
+                                    { "from",  new int[] { x, y, z } },
+                                    { "to",    new int[] { x+1, y+1, z+1 } },
                                     { "faces", new Dictionary<string, object>()
                                         {
                                             { "down",  new Dictionary<string, string>() { {"texture", "#" + blockName }, {"cullface", "down"} } },
-                                            { "up",  new Dictionary<string, string>() { {"texture", "#" + blockName }, {"cullface", "up"} } },
-                                            { "north",  new Dictionary<string, string>() { {"texture", "#" + blockName }, {"cullface", "north"} } },
-                                            { "south",  new Dictionary<string, string>() { {"texture", "#" + blockName }, {"cullface", "south"} } },
+                                            { "up",    new Dictionary<string, string>() { {"texture", "#" + blockName }, {"cullface", "up"} } },
+                                            { "north", new Dictionary<string, string>() { {"texture", "#" + blockName }, {"cullface", "north"} } },
+                                            { "south", new Dictionary<string, string>() { {"texture", "#" + blockName }, {"cullface", "south"} } },
                                             { "east",  new Dictionary<string, string>() { {"texture", "#" + blockName }, {"cullface", "east"} } },
                                             { "west",  new Dictionary<string, string>() { {"texture", "#" + blockName }, {"cullface", "west"} } },
                                         }
