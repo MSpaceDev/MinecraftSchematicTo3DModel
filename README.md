@@ -1,7 +1,16 @@
-# Minecraft ─ Schematic To 3D Model
-A program that converts 16 x 16 x 16 schematics into a 3D Block Model (was created for use in Xisumavoid's LPMT)
+## Minecraft ─ Schematic to 3D Model
+### Introduction
+Schematic to Model is a program that performs a batch conversion on .schematic or .schem files which is outputted into a neatly packaged resource pack, ready to be merged into an existing pack or act as a base for a new one.
 
-### Features
+### Prerequisites:
+- You are using .schematic or .schem files generated in 1.14+
+- Your schematic must be exactly 16x16x16
+- The model must be created using the [Colour Palette RP (1.16)](https://www.dropbox.com/s/hco1r8drt2mq0ry/Colour%20Palette%20RP.zip?dl=0)
+
+### Usage and Tips
+https://docs.google.com/document/d/1ctttLqd_oF3VT77fvRTwAWcgBpnFDYPwfedde47zKWM/edit?usp=sharing
+
+### Technical
 - Coded using C# and the Windows Presentation Foundation
 - Uses the fNBT library, as well as Json .NET
 
