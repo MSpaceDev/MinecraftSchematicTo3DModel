@@ -1,0 +1,12 @@
+{
+	"parent": "item/generated",
+	"textures": {
+		"layer0": "item/stick"
+	},
+	"overrides": [
+		{ "predicate": { "custom_model_data": 0 }, "model": "schematic_to_model/model_0" },
+		{ "predicate": { "custom_model_data": 1 }, "model": "schematic_to_model/model_1" },
+		{ "predicate": { "custom_model_data": 2 }, "model": "schematic_to_model/model_2" },
+		{ "predicate": { "custom_model_data": 3 }, "model": "schematic_to_model/model_3" }
+	]
+}
