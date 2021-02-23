@@ -8,7 +8,10 @@ Schematic to Model is a program that performs a batch conversion on .schematic o
 - The model must be created using the [Colour Palette RP (1.16)](https://www.dropbox.com/s/hco1r8drt2mq0ry/Colour%20Palette%20RP.zip?dl=0)
 
 ### Usage and Tips
+#### Google Docs Tutorial
 https://docs.google.com/document/d/1ctttLqd_oF3VT77fvRTwAWcgBpnFDYPwfedde47zKWM/edit?usp=sharing
+#### YouTube Tutorial Video by monpjc
+[![](http://img.youtube.com/vi/RSESHudDjco/0.jpg)](http://www.youtube.com/watch?v=RSESHudDjco "")
 
 ### Technical
 - Coded using C# and the Windows Presentation Foundation
